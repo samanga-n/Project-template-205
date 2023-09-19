@@ -19,7 +19,44 @@ nameWindow = None
 
 
 
+def gameWindow():
+    global gameWindow
+    global canvas2
+    global screen_width
+    global screen_height
+    global dice
+    global winingMessage
+    global resetButton
+    global flashNumberLabel
 
+
+    gameWindow = Tk()
+    gameWindow.title("Tambola Family Fun")
+    gameWindow.geometry('800x600')
+
+    screen_width = gameWindow.winfo_screenwidth()
+    screen_height = gameWindow.winfo_screenheight()
+
+    bg = ImageTk.PhotoImage(file = "./assets/background.png")
+
+    canvas2 = Canvas( gameWindow, width = 500,height = 500)
+    canvas2.pack(fill = "both", expand = True)
+
+    # Display image
+    canvas2.create_image( 0, 0, image = bg, anchor = "nw")
+
+    # Add Text
+    canvas2.create_text( screen_width/4.5,50, text = "Tambola Family Fun", font=("Chalkboard SE",50), fill="#3e2723")
+
+    createTicket()
+    placeNumbers()
+
+
+    # Flash Number Label
+    flashNumberLabel = canvas2.create_text(400,screen_height/2.3, text = "Waiting for other players to join...", font=("Chalkboard SE",30), fill="#3e2723")
+
+    gameWindow.resizable(True, True)
+    gameWindow.mainloop()
 
 def saveName():
     global SERVER
@@ -33,7 +70,7 @@ def saveName():
 
     SERVER.send(playerName.encode())
 
-    
+    gameWindow()
 
 
 
